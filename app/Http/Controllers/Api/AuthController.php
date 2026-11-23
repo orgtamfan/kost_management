@@ -37,7 +37,7 @@ class AuthController extends Controller
             $data['tenant'] = $user->tenant->load('room');
         }
 
-        return response()->json($data);
+        return response()->json($data)->header('X-CSRF-TOKEN', csrf_token());
     }
 
     /**
@@ -49,7 +49,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return response()->json(['message' => 'Berhasil keluar.']);
+        return response()->json(['message' => 'Berhasil keluar.'])->header('X-CSRF-TOKEN', csrf_token());
     }
 
     /**

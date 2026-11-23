@@ -22,6 +22,8 @@ function api(method, url, body) {
     opts.body = body;
   }
   return fetch(url, opts).then(function (r) {
+    var newToken = r.headers.get("X-CSRF-TOKEN");
+    if (newToken) document.querySelector('meta[name="csrf-token"]').content = newToken;
     if (!r.ok) return r.json().then(function (e) { throw new Error(e.message || "Error " + r.status); });
     return r.json();
   });
@@ -60,9 +62,12 @@ function render() {
   var h = "";
   if (view === "home") {
     var cur = BILLS.filter(function (b) { return b.st !== "lunas"; })[0] || BILLS[0];
+    var tenant = USER.tenant;
+    var contractStart = tenant.contract_start ? new Date(tenant.contract_start).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "-";
+    var contractEnd = tenant.contract_end ? new Date(tenant.contract_end).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "-";
     h = '<div><h1 style="font-size:1.7rem">Halo, ' + esc(USER.name.split(" ")[0]) + '</h1><p class="sub">Ringkasan kamar dan tagihan Anda.</p></div>'
       + (cur ? bill(cur) : '<div class="card"><p class="sub">Belum ada tagihan.</p></div>')
-      + '<div class="card"><h2>Kamar Anda</h2><dl class="room"><dt>Kamar</dt><dd>' + esc(USER.tenant.room.name) + '</dd><dt>Sewa</dt><dd>' + rp(USER.tenant.room.price) + ' / bulan</dd><dt>Kontrak</dt><dd>' + USER.tenant.contract_start + ' sampai ' + USER.tenant.contract_end + '</dd></dl></div>'
+      + '<div class="card"><h2>Kamar Anda</h2><dl class="room"><dt>Kamar</dt><dd>' + esc(tenant.room.name) + '</dd><dt>Sewa</dt><dd>' + rp(tenant.room.price) + ' / bulan</dd><dt>Kontrak</dt><dd>' + contractStart + ' sampai ' + contractEnd + '</dd></dl></div>'
       + '<div class="card"><h2>Pengumuman</h2>' + (ANN.length ? ANN.map(function (a) { return '<div class="ann"><h3>' + esc(a.j) + '</h3><p>' + esc(a.p) + '</p></div>'; }).join("") : '<p class="sub">Belum ada pengumuman.</p>') + '</div>';
   }
   if (view === "bill") h = '<h1 style="font-size:1.7rem">Tagihan</h1>' + (BILLS.length ? BILLS.map(function (b) { return bill(b, true); }).join("") : '<div class="empty">Belum ada tagihan.</div>');
@@ -88,6 +93,12 @@ $("#lform").addEventListener("submit", function (e) {
   er.classList.add("hidden");
   api("POST", "/api/login", { email: $("#em").value.trim(), password: $("#pw").value })
     .then(function (user) {
+      if (user.role !== "tenant" || !user.tenant) {
+        er.textContent = "Akun ini tidak memiliki kontrak penghuni.";
+        er.classList.remove("hidden");
+        api("POST", "/api/logout");
+        return;
+      }
       USER = user;
       loadData().then(function () {
         $("#login").classList.add("hidden");
@@ -193,6 +204,9 @@ document.querySelectorAll("dialog").forEach(function (d) { d.addEventListener("c
 // Cek apakah sudah login (reload halaman)
 api("GET", "/api/me")
   .then(function (user) {
+    if (user.role !== "tenant" || !user.tenant) {
+      throw new Error("Akun ini tidak memiliki kontrak penghuni.");
+    }
     USER = user;
     return loadData();
   })

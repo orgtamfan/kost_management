@@ -1,6 +1,6 @@
 // Kosan Anwar – Panel Owner
 // Semua data diambil dari API backend. Tidak ada data hardcoded.
-var ROOMS = [], TEN = [], BILLS = [], ISS = [], ANN = [];
+var ROOMS = [], TEN = [], BILLS = [], REPORT_BILLS = [], ISS = [], ANN = [];
 var MON = {};
 var STL = { belum: "Belum dibayar", pending: "Menunggu verifikasi", lunas: "Lunas", ditolak: "Ditolak" };
 var TABS = [["home", "Ringkasan"], ["bill", "Pembayaran"], ["room", "Kamar"], ["ten", "Penghuni"], ["iss", "Keluhan"], ["rep", "Laporan"]];
@@ -13,8 +13,9 @@ function T(id) { return TEN.filter(function (x) { return x.id == id; })[0]; }
 function R(id) { return ROOMS.filter(function (x) { return x.id == id; })[0]; }
 function toast(t) { var e = $("#toast"); e.textContent = t; e.classList.remove("hidden"); clearTimeout(toast.t); toast.t = setTimeout(function () { e.classList.add("hidden"); }, 3000); }
 function fd(s) { var d = new Date(s + "T00:00:00"); return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }); }
+function currentMonth() { var now = new Date(); return now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0"); }
 function nPend() { return BILLS.filter(function (b) { return b.st === "pending"; }).length; }
-function sumM(m, lunas) { return BILLS.filter(function (b) { return b.m === m && ((b.st === "lunas") === lunas); }).reduce(function (a, b) { return a + b.amt; }, 0); }
+function sumM(m, lunas) { return REPORT_BILLS.filter(function (b) { return b.m === m && ((b.st === "lunas") === lunas); }).reduce(function (a, b) { return a + b.amt; }, 0); }
 
 function api(method, url, body) {
   var opts = {
@@ -27,6 +28,8 @@ function api(method, url, body) {
     opts.body = JSON.stringify(body);
   }
   return fetch(url, opts).then(function (r) {
+    var newToken = r.headers.get("X-CSRF-TOKEN");
+    if (newToken) document.querySelector('meta[name="csrf-token"]').content = newToken;
     if (!r.ok) return r.json().then(function (e) { throw new Error(e.message || "Error " + r.status); });
     if (r.status === 204) return {};
     return r.json();
@@ -34,7 +37,7 @@ function api(method, url, body) {
 }
 
 function loadAll() {
-  var curM = repM || new Date().toISOString().slice(0, 7);
+  var curM = currentMonth();
   return Promise.all([
     api("GET", "/api/rooms").then(function (d) { ROOMS = d; }),
     api("GET", "/api/tenants").then(function (d) { TEN = d; }),
@@ -49,12 +52,13 @@ function loadAll() {
         MON[m] = monthNames[+parts[1]] + " " + parts[0];
       });
       if (!repM && d.length) repM = d[0];
+      return api("GET", "/api/bills?month=" + (repM || curM)).then(function (bills) { REPORT_BILLS = bills; });
     })
   ]);
 }
 
 function render() {
-  var curM = repM || new Date().toISOString().slice(0, 7);
+  var curM = view === "rep" ? (repM || currentMonth()) : currentMonth();
   $("#tabs").innerHTML = TABS.map(function (t) {
     return '<button data-v="' + t[0] + '" aria-current="' + (t[0] === view ? "page" : "false") + '">' + t[1] + (t[0] === "bill" && nPend() ? '<span class="dot">' + nPend() + "</span>" : "") + "</button>";
   }).join("");
@@ -108,7 +112,7 @@ function render() {
   }
 
   if (view === "rep") {
-    var rows = BILLS.filter(function (b) { return b.m === curM; });
+    var rows = REPORT_BILLS.filter(function (b) { return b.m === curM; });
     h = '<div class="row"><h1 style="font-size:1.7rem">Laporan keuangan</h1><div class="acts"><select id="repM" aria-label="Pilih bulan" style="width:auto">'
       + Object.keys(MON).map(function (m) { return '<option value="' + m + '"' + (m === curM ? " selected" : "") + ">" + MON[m] + "</option>"; }).join("")
       + '</select><button class="btn" id="pdf">Unduh PDF</button></div></div>'
@@ -130,7 +134,7 @@ $("#tabs").addEventListener("click", function (e) {
 $("#view").addEventListener("change", function (e) {
   if (e.target.id === "repM") {
     repM = e.target.value;
-    api("GET", "/api/bills?month=" + repM).then(function (d) { BILLS = d; render(); });
+    api("GET", "/api/bills?month=" + repM).then(function (d) { REPORT_BILLS = d; render(); });
   }
   if (e.target.dataset.is !== undefined) {
     var issId = e.target.dataset.is;
@@ -290,9 +294,9 @@ function showOwnerApp() {
 }
 
 $("#ownerOut").addEventListener("click", function () {
-  fetch("/api/logout", { method: "POST", headers: { "X-CSRF-TOKEN": csrf(), "Accept": "application/json" }, credentials: "same-origin" })
+  api("POST", "/api/logout")
     .finally(function () {
-      ROOMS = []; TEN = []; BILLS = []; ISS = []; ANN = [];
+      ROOMS = []; TEN = []; BILLS = []; REPORT_BILLS = []; ISS = []; ANN = [];
       $("#ownerApp").classList.add("hidden");
       $("#ownerLogin").classList.remove("hidden");
     });

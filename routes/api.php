@@ -25,6 +25,7 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,
 Route::middleware('auth:web')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('my/announcements', [AnnouncementController::class, 'index']);
 
     // Owner only
     Route::middleware('role:owner')->group(function () {
@@ -46,6 +47,5 @@ Route::middleware('auth:web')->group(function () {
         Route::post('my/bills/{bill}/slip', [BillController::class, 'uploadSlip']);
         Route::get('my/issues', [IssueController::class, 'myIssues']);
         Route::post('my/issues', [IssueController::class, 'store']);
-        Route::get('my/announcements', [AnnouncementController::class, 'index']);
     });
 });

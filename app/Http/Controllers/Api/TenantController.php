@@ -9,6 +9,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -119,8 +120,15 @@ class TenantController extends Controller
      */
     public function destroy(Tenant $tenant): JsonResponse
     {
-        $tenant->room->update(['status' => 'kosong']);
-        $tenant->delete(); // bills & issues sudah pakai nullOnDelete, riwayat tetap aman
+        DB::transaction(function () use ($tenant): void {
+            $user = $tenant->user;
+            $tenant->room->update(['status' => 'kosong']);
+            $tenant->delete();
+
+            if ($user && ! Tenant::where('user_id', $user->id)->exists()) {
+                $user->delete();
+            }
+        });
 
         return response()->json(['message' => 'Kontrak penghuni diakhiri. Riwayat keuangan tetap tersimpan.']);
     }

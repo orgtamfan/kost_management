@@ -27,6 +27,8 @@
 <header class="top"><div class="in"><span class="brand">Kosan Anwar · Owner</span><div style="display:flex;align-items:center;gap:.75rem"><span class="sub" style="color:inherit;opacity:.9" id="ownerDate"></span><button id="ownerOut">Keluar</button></div></div></header>
 <div class="tabs"><div class="in" id="tabs"></div></div>
 <main id="view"></main>
+</div>
+</div>
 
 <dialog id="dRej"><form id="fRej">
 <h2>Tolak bukti pembayaran</h2>
@@ -38,7 +40,7 @@
 <dialog id="dRoom"><form id="fRoom">
 <h2 id="roomT"></h2>
 <div class="g2"><label>Nama kamar<input id="kN" required></label><label>Status<select id="kS"><option value="kosong">Kosong</option><option value="terisi">Terisi</option></select></label></div>
-<div class="g2"><label>Harga per bulan (Rp)<input id="kP" type="number" min="0" step="10000" required></label><label>Ukuran<input id="kZ" placeholder="3 × 4 m"></label></div>
+<div class="g2"><label>Harga per bulan (Rp)<input id="kP" type="number" min="0" step="10000" required></label><label>Ukuran<input id="kZ" placeholder="3 × 4 m" required></label></div>
 <div class="g2"><label>Lantai<input id="kL" type="number" min="1" value="1"></label><label>Fasilitas (pisahkan koma)<input id="kF" placeholder="Kasur, Lemari, AC"></label></div>
 <div class="row"><button type="button" class="btn alt" data-close>Batal</button><button class="btn">Simpan kamar</button></div>
 </form></dialog>

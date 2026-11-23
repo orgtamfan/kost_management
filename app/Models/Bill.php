@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['tenant_id', 'month', 'amount', 'status', 'receipt_number', 'rejection_note', 'slip_path', 'paid_at'])]
+#[Fillable(['tenant_id', 'month', 'amount', 'status', 'receipt_number', 'rejection_note', 'slip_data', 'paid_at'])]
 class Bill extends Model
 {
     /** @use HasFactory<BillFactory> */
