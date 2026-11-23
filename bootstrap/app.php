@@ -11,6 +11,14 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    ->booted(function (): void {
+        if (isset($_ENV['VERCEL']) || app()->isProduction()) {
+            $viewPath = config('view.compiled');
+            if (! is_dir($viewPath)) {
+                @mkdir($viewPath, 0755, true);
+            }
+        }
+    })
     ->withMiddleware(function (Middleware $middleware): void {
         //
     })
