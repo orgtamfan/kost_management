@@ -15,8 +15,8 @@
 <form class="lbox" id="lform">
 <h1>Kosan Anwar</h1>
 <p>Masuk untuk melihat tagihan, mengunggah bukti transfer, dan melaporkan kerusakan.</p>
-<label>Email<input type="email" id="em" value="rina@contoh.com" autocomplete="username" required></label>
-<label>Kata sandi<input type="password" id="pw" value="password" autocomplete="current-password" required></label>
+<label>Email<input type="email" id="em" value="rina@kost.com" autocomplete="username" readonly required></label>
+<label>Kata sandi<input type="password" id="pw" value="password" autocomplete="current-password" readonly required></label>
 <p class="err hidden" id="lerr"></p>
 <button class="btn" type="submit">Masuk</button>
 <p style="font-size:.85rem">Demo: kredensial sudah terisi. Sistem akan mengarahkan ke dashboard sesuai peran.</p>
