@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 Route::get('/penghuni', function () {
     return view('pages.area-penghuni');
-})->name('penghuni');
+})->name('login');
 
 Route::get('/owner', function () {
     return view('pages.panel-owner');
