@@ -3,13 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Kosan Anwar – Panel Owner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 @vite(['resources/css/pages/panel-owner.css'])
 </head>
 <body>
-<header class="top"><div class="in"><span class="brand">Kosan Anwar · Owner</span><span class="sub" style="color:inherit;opacity:.9">Senin, 23 November 2026</span></div></header>
+
+<section id="ownerLogin" class="hidden">
+<form class="lbox" id="ownerLform">
+<h1>Kosan Anwar</h1>
+<p>Masuk sebagai pemilik untuk mengakses panel manajemen.</p>
+<label>Email<input type="email" id="oEm" autocomplete="username" required placeholder="anwar@kost.com"></label>
+<label>Kata sandi<input type="password" id="oPw" autocomplete="current-password" required></label>
+<p class="err hidden" id="oLerr"></p>
+<button class="btn" type="submit">Masuk</button>
+</form>
+</section>
+
+<div id="ownerApp" class="hidden">
+<header class="top"><div class="in"><span class="brand">Kosan Anwar · Owner</span><div style="display:flex;align-items:center;gap:.75rem"><span class="sub" style="color:inherit;opacity:.9" id="ownerDate"></span><button id="ownerOut">Keluar</button></div></div></header>
 <div class="tabs"><div class="in" id="tabs"></div></div>
 <main id="view"></main>
 

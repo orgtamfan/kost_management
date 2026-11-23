@@ -13,4 +13,3 @@ Route::get('/penghuni', function () {
 Route::get('/owner', function () {
     return view('pages.panel-owner');
 })->name('owner');
-
