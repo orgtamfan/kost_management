@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kosan Anwar – Panel Owner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F1;--surface:#FFFFFF;--ink:#13211E;--muted:#55645F;--line:#D3DDD9;--teal:#0E5A52;--teal-ink:#FFFFFF;--tag:#F3B63A;--tag-ink:#2A1E00;--off:#B7C2BE;--ok:#1B7A3E;--okbg:#DDF1E4;--warn:#8A5A00;--warnbg:#FDEBC4;--bad:#A12A2A;--badbg:#F9DADA;--info:#1F5A8A;--infobg:#DCEBF7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C1513;--surface:#14231F;--ink:#E7F0ED;--muted:#9DB0AA;--line:#27403A;--teal:#58C2B2;--teal-ink:#06201B;--off:#3B504A;--ok:#7BD99B;--okbg:#17392A;--warn:#F3C970;--warnbg:#3C2E0D;--bad:#F29A9A;--badbg:#411B1B;--info:#8DC3EE;--infobg:#152C40}}
+:root[data-theme="dark"]{--bg:#0C1513;--surface:#14231F;--ink:#E7F0ED;--muted:#9DB0AA;--line:#27403A;--teal:#58C2B2;--teal-ink:#06201B;--off:#3B504A;--ok:#7BD99B;--okbg:#17392A;--warn:#F3C970;--warnbg:#3C2E0D;--bad:#F29A9A;--badbg:#411B1B;--info:#8DC3EE;--infobg:#152C40}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,system-ui,sans-serif;line-height:1.15;margin:0}
+:focus-visible{outline:3px solid var(--tag);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:11px 16px;font:600 .95rem Figtree,sans-serif;cursor:pointer;background:var(--tag);color:var(--tag-ink)}
+.btn.alt{background:transparent;border:1.5px solid var(--teal);color:var(--teal)}
+.btn.bad{background:var(--badbg);color:var(--bad)}
+.btn.sm{padding:7px 12px;font-size:.85rem}
+.top{background:var(--teal);color:var(--teal-ink)}
+.top .in{max-width:960px;margin:0 auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.brand{font:800 1.15rem 'Bricolage Grotesque',sans-serif}
+.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.tabs .in{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;padding:0 10px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:13px 14px;font:500 .95rem Figtree,sans-serif;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button[aria-current="page"]{color:var(--teal);font-weight:600;border-bottom-color:var(--tag)}
+.dot{background:var(--tag);color:var(--tag-ink);border-radius:99px;font-size:.72rem;font-weight:600;padding:1px 7px;margin-left:5px}
+main{max-width:960px;margin:0 auto;padding:20px 18px 60px;display:grid;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sub{color:var(--muted);font-size:.9rem;margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat b{display:block;font:800 1.7rem 'Bricolage Grotesque',sans-serif}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(min-width:640px){.board{grid-template-columns:repeat(8,1fr)}}
+.tg{position:relative;border-radius:6px 6px 12px 12px;padding:20px 4px 8px;text-align:center;font-weight:600;background:var(--tag);color:var(--tag-ink)}
+.tg::before{content:"";position:absolute;top:7px;left:50%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:var(--teal)}
+.tg.off{background:var(--off);color:var(--muted)}.tg small{display:block;font-weight:500;font-size:.7rem}
+.badge{font-size:.78rem;font-weight:600;border-radius:6px;padding:3px 9px;white-space:nowrap}
+.b-belum,.b-Baru{background:var(--warnbg);color:var(--warn)}.b-pending,.b-Diproses{background:var(--infobg);color:var(--info)}.b-lunas,.b-Selesai,.b-kosong{background:var(--okbg);color:var(--ok)}.b-ditolak{background:var(--badbg);color:var(--bad)}.b-terisi{background:var(--off);color:var(--muted)}
+.item{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item .l{min-width:0;flex:1 1 220px}.item b{font-weight:600}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+label{display:grid;gap:4px;font-weight:600;font-size:.9rem}
+input,select,textarea{font:400 1rem Figtree,sans-serif;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:80px;resize:vertical}
+dialog{width:min(520px,calc(100% - 24px));max-height:calc(100% - 24px);border:0;border-radius:16px;padding:20px;background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(5,15,12,.6)}
+dialog form,.stack{display:grid;gap:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slip{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.err{color:var(--bad);font-size:.88rem;margin:0}
+.hidden{display:none!important}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right}
+.sum{display:flex;gap:24px;flex-wrap:wrap}.sum b{font:800 1.5rem 'Bricolage Grotesque',sans-serif;display:block}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:500;z-index:20;max-width:90%}
+@media print{body *{visibility:hidden}#rep,#rep *{visibility:visible}#rep{position:absolute;left:0;top:0;width:100%;border:0}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><span class="brand">Kosan Anwar · Owner</span><span class="sub" style="color:inherit;opacity:.9">Senin, 23 November 2026</span></div></header>
+<div class="tabs"><div class="in" id="tabs"></div></div>
+<main id="view"></main>
+
+<dialog id="dRej"><form id="fRej">
+<h2>Tolak bukti pembayaran</h2>
+<p class="sub" id="rS"></p>
+<label>Alasan penolakan (wajib)<textarea id="rN" placeholder="Contoh: Nominal transfer kurang Rp50.000, mohon transfer sisanya dan unggah ulang." required></textarea></label>
+<div class="row"><button type="button" class="btn alt" data-close>Batal</button><button class="btn bad">Tolak dan kirim catatan</button></div>
+</form></dialog>
+
+<dialog id="dRoom"><form id="fRoom">
+<h2 id="roomT"></h2>
+<div class="g2"><label>Nama kamar<input id="kN" required></label><label>Status<select id="kS"><option value="kosong">Kosong</option><option value="terisi">Terisi</option></select></label></div>
+<div class="g2"><label>Harga per bulan (Rp)<input id="kP" type="number" min="0" step="10000" required></label><label>Ukuran<input id="kZ" placeholder="3 × 4 m"></label></div>
+<div class="g2"><label>Lantai<input id="kL" type="number" min="1" value="1"></label><label>Fasilitas (pisahkan koma)<input id="kF" placeholder="Kasur, Lemari, AC"></label></div>
+<div class="row"><button type="button" class="btn alt" data-close>Batal</button><button class="btn">Simpan kamar</button></div>
+</form></dialog>
+
+<dialog id="dTen"><form id="fTen">
+<h2 id="tenT"></h2>
+<div class="g2"><label>Nama penghuni<input id="tN" required></label><label>No. HP<input id="tH" inputmode="tel" required></label></div>
+<label>Kamar<select id="tR"></select></label>
+<div class="g2"><label>Kontrak mulai<input id="tM" type="date" required></label><label>Kontrak berakhir<input id="tA" type="date" required></label></div>
+<p class="err hidden" id="tE"></p>
+<div class="row"><button type="button" class="btn alt" data-close>Batal</button><button class="btn">Simpan penghuni</button></div>
+</form></dialog>
+
+<dialog id="dDel"><div class="stack"><h2 id="delT"></h2><p class="sub" id="delS"></p>
+<div class="row"><button class="btn alt" data-close>Batal</button><button class="btn bad" id="delOk">Ya, lanjutkan</button></div></div></dialog>
+
+<dialog id="dSlip"><div class="stack"><h2>Bukti transfer</h2><div class="slip" id="slipBox"></div><button class="btn" data-close>Tutup</button></div></dialog>
+<div id="toast" class="hidden" role="status" aria-live="polite"></div>
+
+<script>
+// Data contoh. Nanti diganti data dari basis data.
+var MON={"2026-09":"September 2026","2026-10":"Oktober 2026","2026-11":"November 2026"};
+var ROOMS=[
+{id:1,n:"Kamar 1",p:650000,sz:"3 × 3 m",fl:1,st:"kosong",f:["Kasur","Lemari","Kamar mandi dalam"]},
+{id:2,n:"Kamar 2",p:850000,sz:"3 × 4 m",fl:1,st:"terisi",f:["Kasur","Lemari","AC"]},
+{id:3,n:"Kamar 3",p:850000,sz:"3 × 4 m",fl:1,st:"terisi",f:["Kasur","Lemari","Meja belajar","AC"]},
+{id:4,n:"Kamar 4",p:700000,sz:"3 × 3 m",fl:1,st:"terisi",f:["Kasur","Lemari","Kipas angin"]},
+{id:5,n:"Kamar 5",p:700000,sz:"3 × 3 m",fl:2,st:"kosong",f:["Kasur","Lemari","Meja belajar"]},
+{id:6,n:"Kamar 6",p:900000,sz:"3,5 × 4 m",fl:2,st:"kosong",f:["Kasur","Lemari","AC","Kamar mandi dalam"]},
+{id:7,n:"Kamar 7",p:650000,sz:"3 × 3 m",fl:2,st:"terisi",f:["Kasur","Lemari","Kipas angin"]},
+{id:8,n:"Kamar 8",p:750000,sz:"3 × 3,5 m",fl:2,st:"kosong",f:["Kasur","Lemari","Kamar mandi dalam"]}];
+var TEN=[
+{id:1,nama:"Budi Santoso",hp:"0812-1111-2222",room:2,mulai:"2026-03-01",akhir:"2027-02-28"},
+{id:2,nama:"Rina Pratiwi",hp:"0813-3333-4444",room:3,mulai:"2026-08-01",akhir:"2027-07-31"},
+{id:3,nama:"Dewi Lestari",hp:"0857-5555-6666",room:4,mulai:"2026-01-01",akhir:"2026-12-31"},
+{id:4,nama:"Andi Saputra",hp:"0821-7777-8888",room:7,mulai:"2026-06-01",akhir:"2027-05-31"}];
+var BILLS=[];
+[1,2,3,4].forEach(function(t){["2026-09","2026-10"].forEach(function(m){BILLS.push({t:t,m:m,amt:rp0(t),st:"lunas"})})});
+BILLS.push({t:1,m:"2026-11",amt:850000,st:"pending"},{t:2,m:"2026-11",amt:850000,st:"belum"},{t:3,m:"2026-11",amt:700000,st:"lunas"},{t:4,m:"2026-11",amt:650000,st:"pending"});
+function rp0(t){return {1:850000,2:850000,3:700000,4:650000}[t]}
+var ISS=[
+{j:"Keran wastafel bocor",d:"Air menetes terus dari sambungan keran.",t:2,tgl:"20 Nov 2026",st:"Diproses"},
+{j:"Pintu kamar sulit dikunci",d:"Kunci sering macet.",t:4,tgl:"22 Nov 2026",st:"Baru"},
+{j:"Lampu kamar mandi mati",d:"Mati sejak awal bulan.",t:2,tgl:"4 Nov 2026",st:"Selesai"}];
+var ANN=[{j:"Pemadaman listrik Sabtu, 28 November",p:"PLN menjadwalkan pemadaman pukul 09.00 sampai 13.00."}];
+var STL={belum:"Belum dibayar",pending:"Menunggu verifikasi",lunas:"Lunas",ditolak:"Ditolak"};
+var TABS=[["home","Ringkasan"],["bill","Pembayaran"],["room","Kamar"],["ten","Penghuni"],["iss","Keluhan"],["rep","Laporan"]];
+var view="home",repM="2026-11",editRoom=null,editTen=null,pend=null,onDel=null;
+var $=function(s){return document.querySelector(s)};
+function rp(n){return "Rp"+n.toLocaleString("id-ID")}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function T(id){return TEN.filter(function(x){return x.id==id})[0]}
+function R(id){return ROOMS.filter(function(x){return x.id==id})[0]}
+function toast(t){var e=$("#toast");e.textContent=t;e.classList.remove("hidden");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.add("hidden")},3000)}
+function fd(s){var d=new Date(s+"T00:00:00");return d.toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"})}
+function nPend(){return BILLS.filter(function(b){return b.st==="pending"}).length}
+function sumM(m,lunas){return BILLS.filter(function(b){return b.m===m&&((b.st==="lunas")===lunas)}).reduce(function(a,b){return a+b.amt},0)}
+
+function render(){
+ $("#tabs").innerHTML=TABS.map(function(t){return '<button data-v="'+t[0]+'" aria-current="'+(t[0]===view?"page":"false")+'">'+t[1]+(t[0]==="bill"&&nPend()?'<span class="dot">'+nPend()+'</span>':"")+'</button>'}).join("");
+ var h="";
+ if(view==="home"){
+  var occ=ROOMS.filter(function(r){return r.st==="terisi"}).length,open=ISS.filter(function(i){return i.st!=="Selesai"}).length;
+  h='<div class="stats"><div class="stat"><b>'+occ+' dari 8</b><span class="sub">kamar terisi</span></div><div class="stat"><b>'+rp(sumM("2026-11",true))+'</b><span class="sub">pemasukan November</span></div><div class="stat"><b>'+nPend()+'</b><span class="sub">bukti menunggu verifikasi</span></div><div class="stat"><b>'+open+'</b><span class="sub">keluhan belum selesai</span></div></div>'
+  +'<div class="card"><h2>Status kamar</h2><div class="board">'+ROOMS.map(function(r){return '<div class="tg'+(r.st==="kosong"?"":" off")+'">'+r.id+'<small>'+(r.st==="kosong"?"Kosong":"Terisi")+'</small></div>'}).join("")+'</div></div>'
+  +'<div class="card"><h2>Pengumuman untuk penghuni</h2><form id="fAnn" class="stack"><label>Judul<input id="aJ" required></label><label>Isi pengumuman<textarea id="aP" required></textarea></label><button class="btn" style="justify-self:start">Publikasikan</button></form>'
+  +ANN.map(function(a){return '<div class="item"><div class="l"><b>'+esc(a.j)+'</b><p class="sub">'+esc(a.p)+'</p></div></div>'}).join("")+'</div>';
+ }
+ if(view==="bill"){
+  var bs=BILLS.filter(function(b){return b.m==="2026-11"}).sort(function(a,b){return (b.st==="pending")-(a.st==="pending")});
+  h='<div class="card"><h2>Tagihan November 2026</h2><p class="sub">Periksa bukti transfer, lalu setujui atau tolak dengan catatan.</p>'+bs.map(function(b){var t=T(b.t);
+   return '<div class="item"><div class="l"><b>'+esc(t.nama)+'</b> · '+R(t.room).n+'<p class="sub">'+rp(b.amt)+(b.no?" · "+b.no:"")+(b.note?" · Catatan: "+esc(b.note):"")+'</p></div><span class="badge b-'+b.st+'">'+STL[b.st]+'</span>'
+   +(b.st==="pending"?'<div class="acts"><button class="btn alt sm" data-slip="'+b.t+'">Lihat bukti</button><button class="btn sm" data-ok="'+b.t+'">Setujui</button><button class="btn bad sm" data-no="'+b.t+'">Tolak</button></div>':"")
+   +(b.st==="belum"||b.st==="ditolak"?'<div class="acts"><button class="btn alt sm" data-wa="'+b.t+'">Ingatkan via WhatsApp</button></div>':"")+'</div>'}).join("")+'</div>';
+ }
+ if(view==="room"){
+  h='<div class="row"><h1 style="font-size:1.7rem">Kamar</h1><button class="btn" data-add="room">Tambah kamar</button></div><div class="card">'+ROOMS.map(function(r){
+   return '<div class="item"><div class="l"><b>'+esc(r.n)+'</b> · '+rp(r.p)+'<p class="sub">'+esc(r.sz)+' · Lantai '+r.fl+' · '+esc(r.f.join(", "))+'</p></div><span class="badge b-'+r.st+'">'+(r.st==="kosong"?"Kosong":"Terisi")+'</span><div class="acts"><button class="btn alt sm" data-er="'+r.id+'">Ubah</button><button class="btn bad sm" data-dr="'+r.id+'">Hapus</button></div></div>'}).join("")+'</div><p class="sub">Perubahan kamar langsung tampil di halaman publik untuk calon penghuni.</p>';
+ }
+ if(view==="ten"){
+  h='<div class="row"><h1 style="font-size:1.7rem">Penghuni</h1><button class="btn" data-add="ten">Tambah penghuni</button></div><div class="card">'+(TEN.length?TEN.map(function(t){
+   return '<div class="item"><div class="l"><b>'+esc(t.nama)+'</b> · '+R(t.room).n+'<p class="sub">'+esc(t.hp)+' · Kontrak '+fd(t.mulai)+' sampai '+fd(t.akhir)+'</p></div><div class="acts"><button class="btn alt sm" data-et="'+t.id+'">Ubah</button><button class="btn bad sm" data-dt="'+t.id+'">Akhiri kontrak</button></div></div>'}).join(""):'<div class="empty">Belum ada penghuni.</div>')+'</div>';
+ }
+ if(view==="iss"){
+  h='<h1 style="font-size:1.7rem">Keluhan</h1><div class="card">'+ISS.map(function(i,ix){var t=T(i.t);
+   return '<div class="item"><div class="l"><b>'+esc(i.j)+'</b><p class="sub">'+esc(i.d)+'</p><p class="sub">'+(t?esc(t.nama)+" · "+R(t.room).n:"")+' · '+i.tgl+'</p></div><label style="min-width:140px">Status<select data-is="'+ix+'">'+["Baru","Diproses","Selesai"].map(function(s){return '<option'+(s===i.st?" selected":"")+'>'+s+'</option>'}).join("")+'</select></label></div>'}).join("")+'</div>';
+ }
+ if(view==="rep"){
+  var rows=BILLS.filter(function(b){return b.m===repM});
+  h='<div class="row"><h1 style="font-size:1.7rem">Laporan keuangan</h1><div class="acts"><select id="repM" aria-label="Pilih bulan" style="width:auto">'+Object.keys(MON).map(function(m){return '<option value="'+m+'"'+(m===repM?" selected":"")+'>'+MON[m]+'</option>'}).join("")+'</select><button class="btn" id="pdf">Unduh PDF</button></div></div>'
+  +'<div class="card" id="rep"><h2>Laporan Kosan Anwar · '+MON[repM]+'</h2><div class="sum"><div><b>'+rp(sumM(repM,true))+'</b><span class="sub">total pemasukan</span></div><div><b>'+rp(sumM(repM,false))+'</b><span class="sub">tunggakan</span></div><div><b>'+ROOMS.filter(function(r){return r.st==="terisi"}).length+' dari 8</b><span class="sub">kamar terisi</span></div></div>'
+  +'<table><thead><tr><th>Penghuni</th><th>Kamar</th><th>Status</th><th class="n">Jumlah</th></tr></thead><tbody>'+rows.map(function(b){var t=T(b.t);return '<tr><td>'+esc(t.nama)+'</td><td>'+R(t.room).n+'</td><td>'+STL[b.st]+'</td><td class="n">'+rp(b.amt)+'</td></tr>'}).join("")+'</tbody></table></div>';
+ }
+ $("#view").innerHTML=h;
+}
+
+function slip(t){var x=T(t);return '<svg viewBox="0 0 320 220" width="100%" role="img" aria-label="Contoh bukti transfer"><rect width="320" height="220" fill="#fff"/><rect width="320" height="36" fill="#0E5A52"/><text x="14" y="24" fill="#fff" font-size="15" font-family="sans-serif">Transfer berhasil</text><text x="14" y="70" fill="#555" font-size="12" font-family="sans-serif">Ke: Anwar (BCA 1234567890)</text><text x="14" y="94" fill="#555" font-size="12" font-family="sans-serif">Dari: '+esc(x.nama)+'</text><text x="14" y="140" fill="#13211E" font-size="26" font-weight="700" font-family="sans-serif">'+rp(BILLS.filter(function(b){return b.t===t&&b.m==="2026-11"})[0].amt)+'</text><text x="14" y="200" fill="#999" font-size="11" font-family="sans-serif">Contoh tampilan. Foto asli dari penghuni tampil di sini.</text></svg>'}
+
+$("#tabs").addEventListener("click",function(e){var b=e.target.closest("[data-v]");if(b){view=b.dataset.v;render()}});
+$("#view").addEventListener("change",function(e){
+ if(e.target.id==="repM"){repM=e.target.value;render()}
+ if(e.target.dataset.is!==undefined){ISS[e.target.dataset.is].st=e.target.value;toast("Status keluhan diperbarui: "+e.target.value+".");render()}
+});
+$("#view").addEventListener("submit",function(e){
+ if(e.target.id==="fAnn"){e.preventDefault();ANN.unshift({j:$("#aJ").value.trim(),p:$("#aP").value.trim()});toast("Pengumuman dipublikasikan ke dashboard seluruh penghuni.");render()}
+});
+$("#view").addEventListener("click",function(e){
+ var d=e.target.closest("button");if(!d)return;var ds=d.dataset;
+ if(d.id==="pdf"){try{window.print()}catch(x){toast("Fitur cetak belum tersedia di pratinjau ini.")}}
+ if(ds.slip){$("#slipBox").innerHTML=slip(+ds.slip);$("#dSlip").showModal()}
+ if(ds.ok){var b=BILLS.filter(function(x){return x.t==ds.ok&&x.m==="2026-11"})[0];b.st="lunas";b.no="KW/2026/11/00"+ds.ok;toast("Pembayaran disetujui. Kuitansi digital diterbitkan untuk "+T(b.t).nama+".");render()}
+ if(ds.no){pend=+ds.no;$("#rS").textContent=T(pend).nama+" · "+R(T(pend).room).n;$("#fRej").reset();$("#dRej").showModal()}
+ if(ds.wa){toast("Pengingat jatuh tempo dikirim ke WhatsApp "+T(+ds.wa).nama+" (simulasi).")}
+ if(ds.add==="room"){openRoom(null)}if(ds.er){openRoom(+ds.er)}
+ if(ds.add==="ten"){openTen(null)}if(ds.et){openTen(+ds.et)}
+ if(ds.dr){var r=R(+ds.dr);ask("Hapus "+r.n+"?",r.st==="terisi"?"Kamar masih terisi, akhiri kontrak penghuninya terlebih dahulu.":"Data kamar akan hilang dari halaman publik.",r.st==="terisi"?null:function(){ROOMS.splice(ROOMS.indexOf(r),1);toast(r.n+" dihapus.")})}
+ if(ds.dt){var t=T(+ds.dt);ask("Akhiri kontrak "+t.nama+"?","Kamar "+R(t.room).n+" akan berstatus kosong dan tampil di halaman publik.",function(){R(t.room).st="kosong";TEN.splice(TEN.indexOf(t),1);toast("Kontrak diakhiri. "+R(t.room).n+" kini kosong.")})}
+});
+function ask(t,s,fn){$("#delT").textContent=t;$("#delS").textContent=s;$("#delOk").classList.toggle("hidden",!fn);onDel=fn;$("#dDel").showModal()}
+$("#delOk").addEventListener("click",function(){if(onDel)onDel();$("#dDel").close();render()});
+
+$("#fRej").addEventListener("submit",function(e){e.preventDefault();var b=BILLS.filter(function(x){return x.t===pend&&x.m==="2026-11"})[0];b.st="ditolak";b.note=$("#rN").value.trim();$("#dRej").close();toast("Bukti ditolak. Penghuni menerima catatan dan diminta unggah ulang.");render()});
+
+function openRoom(id){editRoom=id;var r=id?R(id):{n:"Kamar "+(ROOMS.length+1),p:700000,sz:"",fl:1,st:"kosong",f:[]};
+ $("#roomT").textContent=id?"Ubah "+r.n:"Tambah kamar";$("#kN").value=r.n;$("#kP").value=r.p;$("#kZ").value=r.sz;$("#kL").value=r.fl;$("#kS").value=r.st;$("#kF").value=r.f.join(", ");$("#dRoom").showModal()}
+$("#fRoom").addEventListener("submit",function(e){e.preventDefault();
+ var o={n:$("#kN").value.trim(),p:+$("#kP").value,sz:$("#kZ").value.trim(),fl:+$("#kL").value,st:$("#kS").value,f:$("#kF").value.split(",").map(function(s){return s.trim()}).filter(Boolean)};
+ if(editRoom){Object.assign(R(editRoom),o)}else{o.id=Math.max.apply(null,ROOMS.map(function(r){return r.id}))+1;ROOMS.push(o)}
+ $("#dRoom").close();toast("Data kamar tersimpan dan diperbarui di halaman publik.");render()});
+
+function openTen(id){editTen=id;var t=id?T(id):{nama:"",hp:"",room:0,mulai:"2026-12-01",akhir:"2027-11-30"};
+ $("#tenT").textContent=id?"Ubah penghuni":"Tambah penghuni";
+ $("#tR").innerHTML=ROOMS.filter(function(r){return r.st==="kosong"||r.id===t.room}).map(function(r){return '<option value="'+r.id+'"'+(r.id===t.room?" selected":"")+'>'+esc(r.n)+' · '+rp(r.p)+'</option>'}).join("");
+ $("#tN").value=t.nama;$("#tH").value=t.hp;$("#tM").value=t.mulai;$("#tA").value=t.akhir;$("#tE").classList.add("hidden");$("#dTen").showModal()}
+$("#fTen").addEventListener("submit",function(e){e.preventDefault();
+ if($("#tA").value<=$("#tM").value){$("#tE").textContent="Tanggal berakhir harus setelah tanggal mulai.";$("#tE").classList.remove("hidden");return}
+ if(!$("#tR").value){$("#tE").textContent="Belum ada kamar kosong. Tambah atau kosongkan kamar dulu.";$("#tE").classList.remove("hidden");return}
+ var rid=+$("#tR").value,o={nama:$("#tN").value.trim(),hp:$("#tH").value.trim(),room:rid,mulai:$("#tM").value,akhir:$("#tA").value};
+ if(editTen){var t=T(editTen);if(t.room!==rid){R(t.room).st="kosong"}Object.assign(t,o)}
+ else{o.id=Math.max.apply(null,TEN.map(function(x){return x.id}).concat([0]))+1;TEN.push(o);BILLS.push({t:o.id,m:"2026-11",amt:R(rid).p,st:"belum"})}
+ R(rid).st="terisi";$("#dTen").close();toast("Data penghuni dan kontrak tersimpan.");render()});
+
+document.querySelectorAll("[data-close]").forEach(function(b){b.addEventListener("click",function(){b.closest("dialog").close()})});
+document.querySelectorAll("dialog").forEach(function(d){d.addEventListener("click",function(e){if(e.target===d)d.close()})});
+render();
+</script>
+</body>
+</html>
