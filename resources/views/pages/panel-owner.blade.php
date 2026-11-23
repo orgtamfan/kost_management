@@ -15,10 +15,11 @@
 <form class="lbox" id="ownerLform">
 <h1>Kosan Anwar</h1>
 <p>Masuk sebagai pemilik untuk mengakses panel manajemen.</p>
-<label>Email<input type="email" id="oEm" autocomplete="username" required placeholder="anwar@kost.com"></label>
-<label>Kata sandi<input type="password" id="oPw" autocomplete="current-password" required></label>
+<label>Email<input type="email" id="oEm" autocomplete="username" value="anwar@kost.com" readonly required></label>
+<label>Kata sandi<input type="password" id="oPw" autocomplete="current-password" value="password" readonly required></label>
 <p class="err hidden" id="oLerr"></p>
 <button class="btn" type="submit">Masuk</button>
+<p style="font-size:.85rem">Demo: kredensial pemilik kost sudah terisi otomatis.</p>
 </form>
 </section>
 

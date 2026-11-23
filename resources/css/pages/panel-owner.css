@@ -46,6 +46,12 @@ dialog form,.stack{display:grid;gap:12px}
 .slip{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
 .err{color:var(--bad);font-size:.88rem;margin:0}
 .hidden{display:none!important}
+/* login owner */
+#ownerLogin{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--teal)}
+.lbox{width:min(420px,100%);background:var(--surface);border-radius:16px;padding:26px;display:grid;gap:14px}
+.lbox h1{font-size:2rem;font-weight:800}
+.lbox p{margin:0;color:var(--muted)}
+.top button{background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:8px;padding:6px 12px;font:600 .85rem Figtree,sans-serif;cursor:pointer}
 .empty{padding:22px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:.92rem}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
