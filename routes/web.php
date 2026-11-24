@@ -13,3 +13,7 @@ Route::get('/penghuni', function () {
 Route::get('/owner', function () {
     return view('pages.panel-owner');
 })->name('owner');
+
+// Fallback untuk Vercel rewrite jika awalan /api terpotong
+Route::prefix('')->group(base_path('routes/api.php'));
+
