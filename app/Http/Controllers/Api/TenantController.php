@@ -145,6 +145,7 @@ class TenantController extends Controller
             'nama' => $tenant->name,
             'hp' => $tenant->phone,
             'room' => $tenant->room_id,
+            'email' => $tenant->user?->email,
             'mulai' => $tenant->contract_start->format('Y-m-d'),
             'akhir' => $tenant->contract_end->format('Y-m-d'),
         ];

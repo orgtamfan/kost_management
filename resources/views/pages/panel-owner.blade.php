@@ -54,6 +54,19 @@
 <div class="row"><button type="button" class="btn alt" data-close>Batal</button><button class="btn">Simpan penghuni</button></div>
 </form></dialog>
 
+<dialog id="dTenCred"><div class="stack">
+<h2>Akun Penghuni Baru</h2>
+<p class="sub">Kredensial login ke Area Penghuni (<code>/penghuni</code>):</p>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;font-family:monospace;font-size:.95rem">
+  <div><b>Email:</b> <span id="tcEmail"></span></div>
+  <div style="margin-top:6px"><b>Kata sandi:</b> <span id="tcPass">password</span></div>
+</div>
+<div class="row">
+  <button type="button" class="btn alt" id="tcCopy">Salin Kredensial</button>
+  <button type="button" class="btn" data-close>Tutup</button>
+</div>
+</div></dialog>
+
 <dialog id="dDel"><div class="stack"><h2 id="delT"></h2><p class="sub" id="delS"></p>
 <div class="row"><button class="btn alt" data-close>Batal</button><button class="btn bad" id="delOk">Ya, lanjutkan</button></div></div></dialog>
 

@@ -98,7 +98,8 @@ function render() {
     h = '<div class="row"><h1 style="font-size:1.7rem">Penghuni</h1><button class="btn" data-add="ten">Tambah penghuni</button></div><div class="card">'
       + (TEN.length ? TEN.map(function (t) {
         var room = R(t.room);
-        return '<div class="item"><div class="l"><b>' + esc(t.nama) + '</b>' + (room ? " · " + room.n : "") + '<p class="sub">' + esc(t.hp) + ' · Kontrak ' + fd(t.mulai) + ' sampai ' + fd(t.akhir) + '</p></div><div class="acts"><button class="btn alt sm" data-et="' + t.id + '">Ubah</button><button class="btn bad sm" data-dt="' + t.id + '">Akhiri kontrak</button></div></div>';
+        var emailTag = t.email ? ' · Akun: <span style="font-family:monospace;color:var(--ink);font-weight:600">' + esc(t.email) + '</span>' : '';
+        return '<div class="item"><div class="l"><b>' + esc(t.nama) + '</b>' + (room ? " · " + room.n : "") + '<p class="sub">' + esc(t.hp) + emailTag + '<br>Kontrak ' + fd(t.mulai) + ' sampai ' + fd(t.akhir) + '</p></div><div class="acts"><button class="btn alt sm" data-et="' + t.id + '">Ubah</button><button class="btn bad sm" data-dt="' + t.id + '">Akhiri kontrak</button></div></div>';
       }).join("") : '<div class="empty">Belum ada penghuni.</div>') + "</div>";
   }
 
@@ -270,7 +271,11 @@ $("#fTen").addEventListener("submit", function (e) {
     if (editTen) { var idx = TEN.findIndex(function (x) { return x.id == editTen; }); if (idx >= 0) TEN[idx] = updated; }
     else {
       TEN.push(updated);
-      if (updated.email) toast("Penghuni ditambahkan. Akun: " + updated.email + " / password: " + updated.password_default);
+      if (updated.email) {
+        document.querySelector("#tcEmail").textContent = updated.email;
+        document.querySelector("#tcPass").textContent = updated.password_default || "password";
+        document.querySelector("#dTenCred").showModal();
+      }
     }
     var newRoom = R(o.room_id); if (newRoom) newRoom.st = "terisi";
     $("#dTen").close();
@@ -334,3 +339,12 @@ api("GET", "/api/me")
   .catch(function () {
     $("#ownerLogin").classList.remove("hidden");
   });
+
+document.querySelector("#tcCopy").addEventListener("click", function () {
+  var em = document.querySelector("#tcEmail").textContent;
+  var pw = document.querySelector("#tcPass").textContent;
+  var text = "Kredensial Area Penghuni Kosan Anwar:\nEmail: " + em + "\nPassword: " + pw + "\nLogin: " + window.location.origin + "/penghuni";
+  navigator.clipboard.writeText(text).then(function () {
+    toast("Kredensial berhasil disalin ke clipboard.");
+  });
+});
