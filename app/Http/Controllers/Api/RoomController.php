@@ -27,7 +27,8 @@ class RoomController extends Controller
             ];
         });
 
-        return response()->json($rooms);
+        return response()->json($rooms)
+            ->header('Cache-Control', 'public, max-age=60, s-maxage=300');
     }
 
     /**
