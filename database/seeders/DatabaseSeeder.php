@@ -14,11 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Owner account
-        User::create([
+        User::updateOrCreate(['role' => 'owner'], [
             'name' => 'Anwar',
-            'email' => 'anwar@kost.com',
-            'password' => Hash::make('password'),
-            'role' => 'owner',
+            'email' => config('app.owner.email'),
+            'password' => Hash::make(config('app.owner.password')),
         ]);
 
         $this->call([
